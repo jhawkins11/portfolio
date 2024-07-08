@@ -17,14 +17,16 @@ html,
   height: 100%;
   padding: 20px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
 }
 
 .shape {
   position: absolute;
   width: 100px;
   height: 100px;
+  z-index: 1;
 }
 
 .sun {
@@ -41,16 +43,38 @@ html,
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 1;
 }
 
-.profile-section {
+.accent-square {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 45%;
+  background-color: #2d2d2d;
+  z-index: 0;
+}
+
+.profile-section,
+.project-section {
   display: flex;
   align-items: center;
   justify-content: center;
   max-width: 1300px;
   text-align: center;
-  z-index: 1;
-  margin-top: 220px;
+  gap: 20px;
+  z-index: 0;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  padding: 100px 20px;
+  background-color: #161616;
+  border-radius: 22px;
+}
+
+.project-section {
+  flex-direction: column;
 }
 
 .text-section {
@@ -61,8 +85,6 @@ html,
   position: relative;
   height: 300px;
   width: 300px;
-  margin-left: 20px;
-  margin-top: 40px;
 }
 
 .image-bg {
@@ -79,13 +101,14 @@ html,
   border-radius: 50%;
   width: 300px;
   filter: grayscale(100%);
-  border: 15px solid #000;
+  border: 15px solid #161616;
 }
 
 .name {
-  font-family: 'Rock 3D', sans-serif;
-  font-size: 4em;
-  margin: 4.5rem 0 0 0;
+  font-family: 'Rubik Glitch', sans-serif;
+  font-size: 5em;
+  margin: 0.5rem 0 0 0;
+  font-weight: 400;
 }
 
 .title {
@@ -101,6 +124,7 @@ html,
 /* Updated scrolling-title styles for full screen scrolling */
 .scrolling-title {
   position: absolute;
+  z-index: 1;
   width: 100%;
   white-space: nowrap;
   animation: scroll-horizontal 20s linear infinite;
@@ -108,6 +132,7 @@ html,
 
 .scrolling-title-sideways {
   position: absolute;
+  z-index: 1;
   height: 100%;
   writing-mode: vertical-rl;
   text-orientation: mixed;

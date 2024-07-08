@@ -1,9 +1,31 @@
 import React from 'react'
 import { useSpring, animated } from 'react-spring'
+import { useGesture } from 'react-use-gesture'
 import './Animations.css'
 import './App.css'
 
 const App: React.FC = () => {
+  const [scrollY, setScrollY] = React.useState(0)
+
+  // Number of slides
+  const slides = 4
+
+  const SCROLL_THRESHOLD = 0.1
+
+  const bind = useGesture({
+    onWheel: ({ delta: [, dy] }) => {
+      setScrollY((prevScrollY) => {
+        const scrollDelta = dy / 500
+        if (Math.abs(scrollDelta) < SCROLL_THRESHOLD) return prevScrollY
+        const newScrollY = Math.max(
+          0,
+          Math.min(slides - 1, prevScrollY + scrollDelta)
+        )
+        return newScrollY
+      })
+    },
+  })
+
   // Animations
   const shapesSpin = useSpring({
     transform: 'rotate(360deg)',
@@ -11,18 +33,52 @@ const App: React.FC = () => {
     config: {
       duration: 2000,
       loop: true,
-      // ease-in-out
       easing: (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
     },
   })
-  const fadeIn = useSpring({
-    opacity: 1,
-    from: { opacity: 0 },
-    config: { duration: 2000 },
+
+  const config = { mass: 1, tension: 120, friction: 14 }
+
+  const profileAnimation = useSpring({
+    transform:
+      scrollY < 1 ? 'translate3d(0%, 0%, 0)' : 'translate3d(-100%, 0%, 0)',
+    opacity: scrollY < 1 ? 1 : 0,
+    config,
+  })
+
+  const project1Animation = useSpring({
+    transform:
+      scrollY < 1
+        ? 'translate3d(100%, 0%, 0)'
+        : scrollY >= 1 && scrollY < 2
+        ? 'translate3d(0%, 0%, 0)'
+        : 'translate3d(-100%, 0%, 0)',
+    opacity: scrollY >= 1 && scrollY < 2 ? 1 : 0,
+    config,
+  })
+
+  const project2Animation = useSpring({
+    transform:
+      scrollY < 2
+        ? 'translate3d(100%, 0%, 0)'
+        : scrollY >= 2 && scrollY < 3
+        ? 'translate3d(0%, 0%, 0)'
+        : 'translate3d(-100%, 0%, 0)',
+    opacity: scrollY >= 2 && scrollY < 3 ? 1 : 0,
+    config,
+  })
+
+  const project3Animation = useSpring({
+    transform:
+      scrollY < 3 ? 'translate3d(100%, 0%, 0)' : 'translate3d(0%, 0%, 0)',
+    opacity: scrollY >= 3 ? 1 : 0,
+    config,
   })
 
   return (
-    <div className='App'>
+    <div className='App' {...bind()}>
+      <div className='accent-square'></div>
+
       <div className='container'>
         <animated.img
           src='/shape1.svg'
@@ -51,7 +107,7 @@ const App: React.FC = () => {
           />
         </div>
 
-        <animated.div className='profile-section' style={fadeIn}>
+        <animated.div className='profile-section' style={profileAnimation}>
           <div className='text-section'>
             <h1 className='name'>JOSIAH HAWKINS</h1>
             <h2 className='title'>FULL STACK DEVELOPER</h2>
@@ -73,6 +129,19 @@ const App: React.FC = () => {
               className='profile-pic'
             />
           </div>
+        </animated.div>
+
+        <animated.div className='project-section' style={project1Animation}>
+          <h2>PROJECT #1</h2>
+          <p>Placeholder information for Project #1.</p>
+        </animated.div>
+        <animated.div className='project-section' style={project2Animation}>
+          <h2>PROJECT #2</h2>
+          <p>Placeholder information for Project #2.</p>
+        </animated.div>
+        <animated.div className='project-section' style={project3Animation}>
+          <h2>PROJECT #3</h2>
+          <p>Placeholder information for Project #3.</p>
         </animated.div>
 
         <div className='scrolling-title-sideways title1'>
