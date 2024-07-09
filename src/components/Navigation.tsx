@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const SLIDES = ['About Me', 'Project 1', 'Project 2', 'Project 3']
+export const SLIDES = ['Home', 'Doc Genie', 'Stocks Dashboard', 'VisualReader']
 
 interface NavigationProps {
   onNavigate: (index: number) => void
