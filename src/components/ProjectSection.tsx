@@ -1,4 +1,3 @@
-// src/components/ProjectSection.tsx
 import React from 'react'
 import { animated, SpringValue } from 'react-spring'
 

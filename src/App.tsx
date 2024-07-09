@@ -1,6 +1,6 @@
 // src/App.tsx
 import React, { useState } from 'react'
-import { useScroll } from './hooks/useScroll'
+import { useScroll, SLIDES } from './hooks/useScroll'
 import Navigation from './components/Navigation'
 import Shapes from './components/Shapes'
 import Slides from './components/Slides'
@@ -21,7 +21,10 @@ const App: React.FC = () => {
       <div className='accent-square'></div>
 
       <div className='container'>
-        <Navigation onNavigate={handleNavigation} />
+        <Navigation
+          onNavigate={handleNavigation}
+          activeSlide={Math.floor(scrollY)}
+        />
         <Shapes />
         <Slides scrollY={scrollY} initialLoad={initialLoad} />
 

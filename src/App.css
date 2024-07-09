@@ -156,6 +156,10 @@ html,
 }
 
 .nav-links button:hover {
+  color: #a3a3a3;
+}
+
+.nav-links button.active {
   color: #87ceeb;
 }
 
