@@ -98,9 +98,9 @@ const Slides: React.FC<SlidesProps> = ({ scrollY, initialLoad }) => {
           'Integration with OpenAI for prompt and image generation',
         ]}
         imageUrls={[
-          '/VisualReader1.png',
-          '/VisualReader2.png',
-          '/VisualReader3.png',
+          '/VisualReader1.PNG',
+          '/VisualReader2.PNG',
+          '/VisualReader3.PNG',
         ]}
         verticalImages
       />
