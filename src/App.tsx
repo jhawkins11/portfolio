@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import './Animations.css'
 import './App.css'
 
+const SLIDES = ['About Me', 'Project 1', 'Project 2', 'Project 3']
+
 const App: React.FC = () => {
-  const [scrollY, setScrollY] = React.useState(0)
+  const [scrollY, setScrollY] = useState(0)
+  const [initialLoad, setInitialLoad] = useState(true)
 
-  // Number of slides
-  const slides = 4
-
-  const SCROLL_THRESHOLD = 0.1
+  const SCROLL_THRESHOLD = 0.05 // Increase sensitivity
 
   const bind = useGesture({
     onWheel: ({ delta: [, dy] }) => {
@@ -19,7 +19,7 @@ const App: React.FC = () => {
         if (Math.abs(scrollDelta) < SCROLL_THRESHOLD) return prevScrollY
         const newScrollY = Math.max(
           0,
-          Math.min(slides - 1, prevScrollY + scrollDelta)
+          Math.min(SLIDES.length - 1, prevScrollY + scrollDelta)
         )
         return newScrollY
       })
@@ -27,23 +27,47 @@ const App: React.FC = () => {
   })
 
   // Animations
-  const shapesSpin = useSpring({
-    transform: 'rotate(360deg)',
-    from: { transform: 'rotate(0deg)' },
-    config: {
-      duration: 2000,
-      loop: true,
-      easing: (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+  const spinFromLeft = useSpring({
+    from: {
+      transform: 'translateX(-500%)',
+      rotate: '0deg',
     },
+    to: {
+      transform: 'translateX(0)',
+      rotate: '360deg',
+    },
+    config: { duration: 1500 },
   })
 
-  const config = { mass: 1, tension: 120, friction: 14 }
+  const spinFromRight = useSpring({
+    from: {
+      transform: 'translateX(500%)',
+      rotate: '0deg',
+    },
+    to: {
+      transform: 'translateX(0)',
+      rotate: '360deg',
+    },
+    config: { duration: 1500 },
+  })
+
+  const config = { mass: 1, tension: 250, friction: 20 } // Snappier configuration
 
   const profileAnimation = useSpring({
     transform:
       scrollY < 1 ? 'translate3d(0%, 0%, 0)' : 'translate3d(-100%, 0%, 0)',
     opacity: scrollY < 1 ? 1 : 0,
     config,
+  })
+
+  const fadeInAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    delay: 750,
+    config: {
+      duration: 750,
+    },
+    onRest: () => setInitialLoad(false),
   })
 
   const project1Animation = useSpring({
@@ -75,39 +99,64 @@ const App: React.FC = () => {
     config,
   })
 
+  const handleNavigation = (index: number) => {
+    setScrollY(index)
+    setInitialLoad(false)
+  }
+
   return (
     <div className='App' {...bind()}>
       <div className='accent-square'></div>
 
       <div className='container'>
+        <nav className='nav-links'>
+          <span className='nav-title'>JH</span>
+          {SLIDES.map((slide, index) => (
+            <button key={index} onClick={() => handleNavigation(index)}>
+              {slide}
+            </button>
+          ))}
+        </nav>
         <animated.img
           src='/shape1.svg'
           className='shape sun'
-          style={shapesSpin}
+          style={{
+            transform: spinFromLeft.transform,
+            rotate: spinFromLeft.rotate,
+          }}
           alt='Shape 1'
         />
+
         <animated.img
           src='/shape2.svg'
           className='shape star1'
-          style={shapesSpin}
+          style={{
+            transform: spinFromRight.transform,
+            rotate: spinFromRight.rotate,
+          }}
           alt='Shape 2'
         />
-        <div className='checkers'>
-          <animated.img
-            src='/shape4.svg'
-            className='checkers-square'
-            style={shapesSpin}
-            alt='Shape 3'
-          />
-          <animated.img
-            src='/shape4.svg'
-            className='checkers-square'
-            style={shapesSpin}
-            alt='Shape 3'
-          />
-        </div>
 
-        <animated.div className='profile-section' style={profileAnimation}>
+        <animated.div
+          className='checkers'
+          style={{
+            transform: spinFromLeft.transform,
+            rotate: spinFromLeft.rotate,
+          }}
+        >
+          <img src='/shape4.svg' className='checkers-square' alt='Shape 3' />
+          <img src='/shape4.svg' className='checkers-square' alt='Shape 4' />
+        </animated.div>
+
+        <animated.div
+          className='profile-section'
+          style={{
+            ...profileAnimation,
+            opacity: initialLoad
+              ? fadeInAnimation.opacity
+              : profileAnimation.opacity,
+          }}
+        >
           <div className='text-section'>
             <h1 className='name'>JOSIAH HAWKINS</h1>
             <h2 className='title'>FULL STACK DEVELOPER</h2>
@@ -120,6 +169,7 @@ const App: React.FC = () => {
               and technology, I am dedicated to crafting solutions that are both
               functional and beautiful.
             </p>
+            <p className='see-more'>Scroll to see more &#8594;</p>
           </div>
           <div className='image-section'>
             <div className='image-bg'></div>

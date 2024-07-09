@@ -46,6 +46,12 @@ html,
   z-index: 1;
 }
 
+.see-more {
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
+}
+
 .accent-square {
   position: absolute;
   top: 0;
@@ -119,6 +125,38 @@ html,
 
 .bio {
   font-size: 1.4em;
+}
+
+.nav-title {
+  font-family: 'Rubik Glitch', sans-serif;
+  font-size: 2em;
+  margin: 0 0.5em;
+}
+
+.nav-links {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 0.9em;
+  margin: 0 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 200;
+  transition: color 0.3s;
+}
+
+.nav-links button:hover {
+  color: #87ceeb;
 }
 
 /* Updated scrolling-title styles for full screen scrolling */
