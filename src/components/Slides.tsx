@@ -72,7 +72,7 @@ const Slides: React.FC<SlidesProps> = ({ scrollY, initialLoad }) => {
           'https://github.com/jhawkins11/stocks-dashboard/raw/main/StocksDash.png',
         ]}
         websiteUrl='https://stocks-dashboard-pi.vercel.app/'
-        githubUrl='https://github.com/jhawkins11/stock-dashboard'
+        githubUrl='https://github.com/jhawkins11/stocks-dashboard'
         verticalImages
       />
       <ProjectSection
