@@ -1,3 +1,4 @@
+/* App.css */
 body,
 html,
 .App {
@@ -217,5 +218,68 @@ html,
   }
   100% {
     transform: translateY(-100%);
+  }
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 1000px) {
+  .profile-section {
+    flex-direction: column;
+    padding: 50px 20px;
+  }
+
+  .text-section {
+    order: 2; /* Ensure the text section comes after the image on small screens */
+  }
+
+  .image-section {
+    margin-bottom: 20px;
+    order: 1; /* Ensure the image section comes first on small screens */
+  }
+
+  .name {
+    font-size: 3em;
+  }
+
+  .title {
+    font-size: 2em;
+  }
+
+  .bio {
+    font-size: 1.2em;
+  }
+
+  .nav-links {
+    top: 0;
+    left: 0;
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .nav-links button {
+    font-size: 0.8em;
+  }
+
+  .scrolling-title,
+  .scrolling-title-sideways {
+    display: none;
+  }
+
+  .accent-square {
+    display: none;
+  }
+
+  .see-more {
+    right: auto;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .checkers {
+    width: 70px;
+    height: 70px;
+    bottom: 70px;
+    z-index: 0;
   }
 }
