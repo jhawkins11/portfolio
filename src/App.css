@@ -222,7 +222,7 @@ html,
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  position: relative;
+  position: absolute;
   align-items: flex-start;
   gap: 20px;
   background-color: #161616;
