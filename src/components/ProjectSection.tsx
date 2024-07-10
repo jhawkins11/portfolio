@@ -2,6 +2,12 @@
 import React from 'react'
 import { animated, SpringValue } from 'react-spring'
 import Slider from 'react-slick'
+import {
+  FaGithub,
+  FaGithubAlt,
+  FaGlobe,
+  FaInternetExplorer,
+} from 'react-icons/fa'
 
 interface ProjectSectionProps {
   style: {
@@ -30,7 +36,7 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({
   verticalImages = false,
 }) => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -39,22 +45,24 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({
 
   return (
     <animated.div className='project-section' style={style}>
-      <div className='project-images'>
+      <div className={`project-images${verticalImages ? '-vertical' : ''}`}>
         <Slider {...settings}>
           {imageUrls.map((url, index) => (
-            <div key={index}>
+            <div key={index} className={'image-container'}>
               <img
                 src={url}
                 alt={`${title} screenshot ${index + 1}`}
-                className={`${verticalImages ? 'vertical' : ''} project-image`}
+                className={`project-image ${verticalImages ? 'vertical' : ''}`}
               />
             </div>
           ))}
         </Slider>
       </div>
       <div className='project-content'>
-        <h2>{title}</h2>
-        <p>{description}</p>
+        <div className='project-description'>
+          <h2>{title}</h2>
+          <p>{description}</p>
+        </div>
         <div className='project-technologies'>
           <h3>Technologies:</h3>
           <ul>
@@ -74,12 +82,12 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({
         <div className='project-links'>
           {websiteUrl && (
             <a href={websiteUrl} target='_blank' rel='noopener noreferrer'>
-              Website
+              <FaGlobe size={20} />
             </a>
           )}
           {githubUrl && (
             <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
-              GitHub
+              <FaGithub size={20} />
             </a>
           )}
         </div>

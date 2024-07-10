@@ -1,7 +1,7 @@
 // src/components/ProfileSection.tsx
 import React from 'react'
 import { SpringValues, animated, useSpring } from 'react-spring'
-import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa'
 
 interface ProfileSectionProps {
   initialLoad: boolean
@@ -59,6 +59,9 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             className='social-icon'
           >
             <FaLinkedin size={30} />
+          </a>
+          <a href='mailto:josiah.c.hawkins@gmail.com' className='social-icon'>
+            <FaEnvelope size={30} />
           </a>
         </div>
         <p className='see-more'>Scroll to see more &#8594;</p>

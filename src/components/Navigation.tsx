@@ -14,7 +14,7 @@ const Navigation: React.FC<NavigationProps> = ({ onNavigate, activeSlide }) => (
       <button
         key={index}
         onClick={() => onNavigate(index)}
-        className={activeSlide === index ? 'active' : ''}
+        className={activeSlide === index ? 'active link' : 'link'}
       >
         {slide}
       </button>
